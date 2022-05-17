@@ -48,3 +48,36 @@ CREATE TABLE `Board_file` (
 	`download`	INT DEFAULT 0,
 	`rdate`		DATETIME
 );
+
+SELECT COUNT(`id`) FROM `Board_article`;
+
+INSERT INTO `Board_article` (`title`,`content`,`uid`,`regip`,`rdate`) 
+SELECT `title`,`content`,`uid`,`regip`,`rdate` FROM `Board_article`;
+
+SELECT a.*, b.`nick` FROM `Board_article` AS a
+JOIN `Board_user` AS b
+ORDER BY `id` DESC
+LIMIT 0,10;
+
+SELECT * FROM `Board_article` AS a
+LEFT JOIN `Board_file` AS b
+ON a.id = b.parent
+WHERE `id` = '1';
+
+SELECT * FROM `Board_article`
+WHERE `parent` = 1
+ORDER BY `id` ASC;
+
+SELECT a.*, b.nick FROM `Board_article` AS a 
+JOIN `Board_user` AS b ON a.uid = b.uid
+WHERE `parent` = 1 ORDER BY `id` ASC;
+
+DELETE FROM `Board_article` WHERE `id` = '1';
+
+UPDATE `Board_article` SET `comment` = `comment` - 1 WHERE `id` = '1';
+
+UPDATE `Board_article` SET `content` = '댓글수정' WHERE `id` = '1';
+
+SELECT COUNT(`uid`) FROM `Board_user` WHERE `uid`='aaa1011';
+
+SELECT COUNT(`nick`) FROM `Board_user` WHERE `nick`='aaa1011';
